@@ -9,6 +9,12 @@ Monitor CPU, RAM, DISK, SWAP (via Top) for linux VMs, send to a file, then send 
 3. A cron will run that command and send all in a flat file.
 4. This flat file is pickup by filebeat and send to ELK for dashboard.
 
+## Why this setup?
+Cadvisor+prometheus are great, but on each VM, need to:
+* expose the data so open a port --> it's prometheus which will pull the data
+* need to run Cadvisor
+Here ansible already got the key of VMs, so he does all the job, pull the perf then push data to ELK.
+
 ## To improve:
 Send directly perf to ELK via syslog, without flat log file and filebeat.
 
