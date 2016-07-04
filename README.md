@@ -1,6 +1,5 @@
-# 1line-perf-monitoring
+# 1line performance (top) monitoring to ELK dashboard
 Monitor CPU, RAM, DISK, SWAP (via Top) for linux VMs, send to a file, then send to ELK for dashboards.
-
 
 ## How it work:
 1. Top formated will display all values.
@@ -18,15 +17,17 @@ We use that line to format top:
 ## 2. Ansible loop
 
 Create a script file and add the following:
+
     nano /root/script/perf.sh
 
-You need to be located in ansible home:
+You need to be located in your ansible home:
 
     cd /root/your_ansible_home
     /usr/local/bin/ansible all -m shell -a "PERF\=\$(top -bn1 | awk '/Cpu/ { cpu\= \"CPU_used(%):\" 100 - \$8 };/Mem:/ { mem\= \"RAM_used(%):\" \$5 / \$3 * 100 };/Swap:/ { swap\= \"SWAP_used(KB):\" \$5 }; END { print cpu \" | \" mem \" | \" swap} '); DISK\=\$(df -t ext4 | awk '/dev/ { print \$5+0; exit} '); echo \"\$(date -Is) | vm:\$(hostname) | \$PERF | DISK_used(%):\$DISK\""
 
 Run to check result:
-    /root/script/perf.sh
+
+    chmod +x /root/script/perf.sh && /root/script/perf.sh
 
     backend | SUCCESS | rc=0 >>
        2016-07-04T21:20:51+0200 | vm:backend | CPU_used(%):0.9 | RAM_used(%):76.6379 | SWAP_used(KB):0 | DISK_used(%):53
@@ -40,7 +41,7 @@ Run to check result:
     # run perf
     */10 * * * * /bin/bash /root/script/perf.sh | tee --append /root/script/perf.log > /dev/null 2>/dev/null
 
-## 4. Beat --> ELK
+## 4. FileBeat --> ELK
 
 ### 4a. ELK config
 
@@ -117,8 +118,4 @@ Run filebeat
 
     docker run -d --name filebeat -v /root/filebeat.yml:/filebeat.yml:ro -v /root/script/perf.log:/mnt/root/script/perf.log:ro sbex/filebeat
 
-
-
-
-
-Import dashbaord: please find them in elk repo, https://bitbucket.org/sbex/elk, kibana folder...
+Import dashboard kibana-perf.conf
