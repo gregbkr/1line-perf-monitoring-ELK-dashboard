@@ -5,7 +5,7 @@ Monitor CPU, RAM, DISK, SWAP (via Top) for linux VMs, send to a file, then send 
 
 ## How it work:
 1. Top formated will display all values.
-2. We will loop on ansible host file: contains the list of our vms (but you can adapt and loop on a flat file if you don't use ansible)
+2. We will loop on ansible host file: contains the list of our vms (but you can adapt and loop on a file listing your inventory)
 3. A cron will run that command and send all in a flat file.
 4. This flat file is pickup by filebeat and send to ELK for dashboard.
 
