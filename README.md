@@ -7,6 +7,9 @@ Monitor CPU, RAM, DISK, SWAP (via Top) for linux VMs, send to a file, then send 
 3. A cron will run that command and send all in a flat file.
 4. This flat file is pickup by filebeat and send to ELK for dashboard.
 
+## To improve:
+Send directly perf to ELK via syslog, without flat log file and filebeat.
+
 ## 1. Top
 
 We use that line to format top:
