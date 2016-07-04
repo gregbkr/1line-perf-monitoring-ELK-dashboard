@@ -1,6 +1,8 @@
 # 1line performance (top) monitoring to ELK dashboard
 Monitor CPU, RAM, DISK, SWAP (via Top) for linux VMs, send to a file, then send to ELK for dashboards.
 
+![perf.JPG](https://github.com/gregbkr/1line-perf-monitoring-ELK-dashboard/raw/master/perf.jpg)
+
 ## How it work:
 1. Top formated will display all values.
 2. We will loop on ansible host file: contains the list of our vms (but you can adapt and loop on a flat file if you don't use ansible)
