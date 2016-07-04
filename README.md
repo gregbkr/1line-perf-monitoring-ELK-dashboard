@@ -122,3 +122,24 @@ Run filebeat
     docker run -d --name filebeat -v /root/filebeat.yml:/filebeat.yml:ro -v /root/script/perf.log:/mnt/root/script/perf.log:ro sbex/filebeat
 
 Import dashboard kibana-perf.conf
+
+
+## Checks
+
+Search kibana:
+
+    @source=perf
+    
+Should return:
+```
+Time 	message  
+July 4th 2016, 22:00:09.000	2016-07-04T22:00:09+0200 | vm:zeus | CPU_used(%):1.1 | RAM_used(%):84.096 | SWAP_used(KB):0 | DISK_used(%):41
+July 4th 2016, 22:00:08.000	2016-07-04T22:00:08+0200 | vm:databaseslave | CPU_used(%):1.5 | RAM_used(%):96.1679 | SWAP_used(KB):0 | DISK_used(%):27
+July 4th 2016, 22:00:07.000	2016-07-04T22:00:07+0200 | vm:logserver | CPU_used(%):22.7 | RAM_used(%):96.8789 | SWAP_used(KB):0 | DISK_used(%):81
+July 4th 2016, 22:00:07.000	2016-07-04T20:00:07+0000 | vm:ethereum | CPU_used(%):7.8 | RAM_used(%):96.6918 | SWAP_used(KB):0 | DISK_used(%):32
+July 4th 2016, 22:00:07.000	2016-07-04T20:00:07+0000 | vm:stats-and-chats | CPU_used(%):1 | RAM_used(%):91.4329 | SWAP_used(KB):0 | DISK_used(%):71
+July 4th 2016, 22:00:07.000	2016-07-04T20:00:07+0000 | vm:backendtrader | CPU_used(%):1.9 | RAM_used(%):87.6561 | SWAP_used(KB):0 | DISK_used(%):42
+July 4th 2016, 22:00:06.000	2016-07-04T20:00:06+0000 | vm:straight | CPU_used(%):0.2 | RAM_used(%):76.3923 | SWAP_used(KB):0 | DISK_used(%):30
+``` 
+    
+
